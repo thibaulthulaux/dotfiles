@@ -1,0 +1,7 @@
+{
+  // Markdown
+  "markdown.extension.toc.levels": "2..6",
+  // Code Formatter
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
+}

@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    // Markdown
+    "yzhang.markdown-all-in-one",
+    "pharndt.vscode-markdown-table",
+    "davidanson.vscode-markdownlint",
+    // Spell check
+    "streetsidesoftware.code-spell-checker",
+    // Code Formatter
+    "esbenp.prettier-vscode"
+  ]
+}
