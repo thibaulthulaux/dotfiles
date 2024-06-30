@@ -1,0 +1,16 @@
+" # Vim Configuration
+
+" ## USER INTERFACE
+
+  set cursorline                      " highlight current line
+  set laststatus=2                    " always show status bar
+  set listchars=tab:▸\ ,trail:·,eol:¬ " textMate symbols
+  set nowrap                          " disable wrapping
+  set number
+  set relativenumber                  " show relative line numbers
+  set ruler                           " show row and column in footer
+  set showcmd                         " show command
+  set wildmenu                        " enable bash style tab completion
+  set wildmode=longest,full
+" set wildmode=list:longest,full
+  set showmatch                       " show bracket matches
