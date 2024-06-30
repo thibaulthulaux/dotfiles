@@ -7,6 +7,8 @@
     // Spell check
     "streetsidesoftware.code-spell-checker",
     // Code Formatter
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    // shell linter
+    "timonwong.shellcheck"
   ]
 }
