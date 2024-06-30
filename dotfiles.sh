@@ -6,8 +6,8 @@ set -o errexit
 
 # ------------------------------------------------------------------ Globals -
 readonly AUTHOR="Thibault HULAUX"
-readonly DATE="2023-01-07"
-readonly VERSION="0.1.0"
+readonly DATE="2024-06-30"
+readonly VERSION="0.1.1"
 
 readonly ARGS="${*}"
 readonly PROGDIR="$(cd "$(dirname "$(readlink -f "${0}")")" && pwd)"
@@ -51,36 +51,33 @@ dotfiles_install() {
   local files=$(find "${src}" -mindepth 1)
   for file in ${files}; do
     local target="${dest}$(echo ${file} | sed s!.*${src}!!)"
-    # skip existing
     if [ -e "${target}" ]; then
-      info "${target} already exists."
-    # create directory
+      # skip existing
+      info "${target} already exists"
     elif [ -d "${file}" ]; then
+      # create directory
       info "$(mkdir -v "${target}")"
-    # create link
     elif [ -f "${file}" ]; then
+      # create link
       info "$(ln -sv "${file}" "${target}")"
     fi
   done
 }
 
-dotfiles_remove() {
+dotfiles_uninstall() {
   local src="${1}"
   local dest="${2}"
-  # remove links
-  local files=$(find "${src}" -mindepth 1 -type f)
+  local files=$(find "${src}" -mindepth 1 | sort -r)
   for file in ${files}; do
     local target="${dest}$(echo ${file} | sed s!.*${src}!!)"
-    if [ -e "${target}" ] && [ -h "${target}" ]; then
-      info "$(rm -v "${target}")"
-    fi
-  done
-  # remove directories
-  local folders=$(find "${src}" -mindepth 1 -type d | sort -r)
-  for folder in ${folders}; do
-    local target="${dest}$(echo ${folder} | sed s!.*${src}!!)"
-    if [ -e "${target}" ] && [ -d "${target}" ]; then
-      info "$(rmdir -v --ignore-fail-on-non-empty "${target}")"
+    if [ -e "${target}" ]; then
+      if [ -f "${file}" ] && [ -h "${target}" ]; then
+        # remove file
+        info "$(rm -v "${target}")"
+      elif [ -d "${file}" ]; then
+        # remove directory
+        info "$(rmdir -v --ignore-fail-on-non-empty "${target}")"
+      fi
     fi
   done
 }
@@ -96,7 +93,7 @@ main() {
     dotfiles_install "${src}" "${dest}"
     ;;
     "u" | "uninstall" )
-    dotfiles_remove  "${src}" "${dest}"
+    dotfiles_uninstall "${src}" "${dest}"
     ;;
     "-h" | "--help" )
     helptext
