@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 get_branch() {
   local branch="$(git symbolic-ref HEAD 2> /dev/null | cut -d '/' -f 3)"
   # refs/heads/master

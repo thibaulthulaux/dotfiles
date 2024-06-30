@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 export HISTTIMEFORMAT="%Y/%m/%d %T "   # Prepend timestamps
 export HISTSIZE=-1                     # Max number of commands
 export HISTFILESIZE=-1                 # Max number of lines
