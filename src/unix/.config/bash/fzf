@@ -1,0 +1,5 @@
+# If fzf is installed, enable.
+if [[ $(which fzf) ]]; then
+    source /usr/share/doc/fzf/examples/key-bindings.bash # Enable fzf keybindings
+    source /usr/share/doc/fzf/examples/completion.bash # Enable fuzzy auto-completion
+fi

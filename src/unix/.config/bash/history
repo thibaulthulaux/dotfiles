@@ -1,0 +1,11 @@
+export HISTTIMEFORMAT="%Y/%m/%d %T "   # Prepend timestamps
+export HISTSIZE=-1                     # Max number of commands
+export HISTFILESIZE=-1                 # Max number of lines
+export HISTIGNORE="ls:ps:history"      # Ignore list
+export HISTCONTROL=erasedups           # Eliminate duplicates
+shopt -s histappend                    # Append instead of overwrite
+shopt -s cmdhist                       # Multi-line commands in one entry
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+# HISTCONTROL=ignoreboth

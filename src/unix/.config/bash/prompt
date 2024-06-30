@@ -1,0 +1,17 @@
+get_branch() {
+  local branch="$(git symbolic-ref HEAD 2> /dev/null | cut -d '/' -f 3)"
+  # refs/heads/master
+
+  # Truncating logic is not POSIX compliant (requires bash)
+  # local branch_truncated="${branch:0:30}"
+  # if (( ${#branch} > ${#branch_truncated} )); then
+  #   branch="${branch_truncated}..."
+  # fi
+
+  [ -n "${branch}" ] && echo "(${branch})"
+}
+
+PS1=""
+PS1+=" \$?\[$(tput setaf 30)\] \w \$(get_branch)\[$(tput sgr0)\]"
+PS1+="\[$(tput setaf 27)$(tput bold)\]\n \h > \[$(tput sgr0)\]"
+export PS1

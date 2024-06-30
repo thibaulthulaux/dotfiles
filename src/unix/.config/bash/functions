@@ -1,0 +1,73 @@
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+## dump functions (dump_*)
+dump_tput_colorcodes() {
+  local i
+  for i in $(seq 1 256); do
+    echo "$(tput setaf $i) tput setaf $i"
+  done
+}
+
+dump_globals() {
+  ( set -o posix ; set )
+}
+
+## echo functions (echo_*)
+# echo_line() {
+#   local linechar="${1:-=}"
+#   local width=$(stty size | cut -d ' ' -f 2)
+#   local span
+#   local i
+#   for i in $(seq 1 ${width} ); do span+="${linechar}"; done
+#   printf "%s\n" "${span}"
+# }
+# 
+# echo_header_center() {
+#   local string=" ${1} "
+#   local linechar="${2:-=}"
+#   local width=$(stty size | cut -d ' ' -f 2)
+#   if (( $(( (${width}-${#string}) % 2  )) != 0 )); then string+="${linechar}"; fi
+#   local span
+#   local i
+#   for i in $(seq 1 $(( ( ${width} - ${#string} ) / 2 )) ); do span+="${linechar}"; done
+#   printf "%s\n" "${span}${string}${span}"
+# }
+# 
+# echo_header_left() {
+#   local string=" ${1} "
+#   local linechar="${2:-=}"
+#   local width=$(stty size | cut -d ' ' -f 2)
+#   if (( $(( (${width}-${#string}) % 2  )) != 0 )); then string+="${linechar}"; fi
+#   local span
+#   local i
+#   for i in $(seq 1 $(( ${width} - ${#string} - 1 )) ); do span+="${linechar}"; done
+#   printf "%s\n" "${linechar}${string}${span}"
+# }
+# 
+# echo_header_right() {
+#   local string=" ${1} "
+#   local linechar="${2:-=}"
+#   local width=$(stty size | cut -d ' ' -f 2)
+#   if (( $(( (${width}-${#string}) % 2  )) != 0 )); then string+="${linechar}"; fi
+#   local span
+#   local i
+#   for i in $(seq 1 $(( ${width} - ${#string} - 1 )) ); do span+="${linechar}"; done
+#   printf "%s\n" "${span}${string}${linechar}"
+# }
+
+## realpath function
+# function realpath()
+# {
+#     f=$@
+#     if [ -d "$f" ]; then
+#         base=""
+#         dir="$f"
+#     else
+#         base="/$(basename "$f")"
+#         dir=$(dirname "$f")
+#     fi
+#     dir=$(cd "$dir" && /bin/pwd)
+#     echo "$dir$base"
+# }
