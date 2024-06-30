@@ -1,0 +1,7 @@
+[user]
+	email = thibault.hulaux@gmail.com
+	name = Thibault HULAUX
+[init]
+	defaultBranch = main
+[log]
+	decorate = auto
