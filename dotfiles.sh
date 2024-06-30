@@ -62,7 +62,6 @@ dotfiles_install() {
       info "$(ln -sv "${file}" "${target}")"
     fi
   done
-  echo 'for file in $(find ~/.config/bash -mindepth 1); do source ${file}; done' >> ~/.bashrc
 }
 
 dotfiles_uninstall() {
@@ -81,7 +80,6 @@ dotfiles_uninstall() {
       fi
     fi
   done
-  sed -i 's!for file in $(find ~/.config/bash -mindepth 1); do source ${file}; done!!' ~/.bashrc
 }
 
 # --------------------------------------------------------------------- Main -
@@ -90,18 +88,21 @@ main() {
   local dest="${HOME}"
   [ -d "${src}" ] || eexit "${src} doesn't exist"
   [ -d "${dest}" ] || eexit "${dest} doesn't exist"
+  local b_string='for file in $(find ~/.config/bash -mindepth 1); do source ${file}; done'
   case "${1}" in
     "i" | "install" )
-    dotfiles_install "${src}" "${dest}"
+      dotfiles_install "${src}" "${dest}"
+      printf "%s\n" "${b_string}" >> ~/.bashrc
     ;;
     "u" | "uninstall" )
-    dotfiles_uninstall "${src}" "${dest}"
+      dotfiles_uninstall "${src}" "${dest}"
+      sed -i "s!${b_string}!!" ~/.bashrc
     ;;
     "-h" | "--help" )
-    helptext
+      helptext
     ;;
     * )
-    usage
+      usage
     ;;
   esac
 }
