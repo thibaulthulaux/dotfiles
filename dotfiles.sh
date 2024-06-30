@@ -62,6 +62,7 @@ dotfiles_install() {
       info "$(ln -sv "${file}" "${target}")"
     fi
   done
+  echo 'for file in $(find ~/.config/bash -mindepth 1); do source ${file}; done' >> ~/.bashrc
 }
 
 dotfiles_uninstall() {
@@ -80,6 +81,7 @@ dotfiles_uninstall() {
       fi
     fi
   done
+  sed -i 's!for file in $(find ~/.config/bash -mindepth 1); do source ${file}; done!!' ~/.bashrc
 }
 
 # --------------------------------------------------------------------- Main -
