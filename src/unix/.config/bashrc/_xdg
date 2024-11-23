@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+# Configuration /etc
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:="$HOME/.config"}"
+# Data /usr/share
+export XDG_DATA_HOME="${XDG_DATA_HOME:="$HOME/.local/share"}"
+# State /var/lib
+export XDG_STATE_HOME="${XDG_STATE_HOME:="$HOME/.local/state"}"
+# Cache /var/cache
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:="$HOME/.cache"}"
+
+# Runtime
+# export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:=""}"
+
+# Configuration (':' separated ordererd list of directories)
+export XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS:="/etc/xdg"}"
+# Data (':' separated ordererd list of directories)
+export XDG_DATA_DIRS="${XDG_DATA_DIRS:="/usr/local/share/:/usr/share/"}"
+# Binaries (':' separated ordererd list of directories)
+export XDG_BIN_DIRS="${XDG_BIN_HOME:="$HOME/.local/bin:$HOME/bin"}"

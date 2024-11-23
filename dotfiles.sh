@@ -46,11 +46,11 @@ EOF
 }
 
 dotfiles_install() {
-  local src="${1}"
-  local dest="${2}"
-  local files=$(find "${src}" -mindepth 1)
+  src="${1}"
+  dest="${2}"
+  files=$(find "${src}" -mindepth 1)
   for file in ${files}; do
-    local target="${dest}$(echo ${file} | sed s!.*${src}!!)"
+    target="${dest}$(echo "${file}" | sed s!.*${src}!!)"
     if [ -e "${target}" ]; then
       # skip existing
       info "${target} already exists"
@@ -65,17 +65,17 @@ dotfiles_install() {
 }
 
 dotfiles_uninstall() {
-  local src="${1}"
-  local dest="${2}"
-  local files=$(find "${src}" -mindepth 1 | sort -r)
+  src="${1}"
+  dest="${2}"
+  files=$(find "${src}" -mindepth 1 | sort -r)
   for file in ${files}; do
-    local target="${dest}$(echo ${file} | sed s!.*${src}!!)"
+    target="${dest}$(echo "${file}" | sed s!.*${src}!!)"
     if [ -e "${target}" ]; then
       if [ -f "${file}" ] && [ -h "${target}" ]; then
         # remove file
         info "$(rm -v "${target}")"
       elif [ -d "${file}" ]; then
-        # remove directory
+        # remove directory if empty
         info "$(rmdir -v --ignore-fail-on-non-empty "${target}")"
       fi
     fi
@@ -84,11 +84,12 @@ dotfiles_uninstall() {
 
 # --------------------------------------------------------------------- Main -
 main() {
-  local src="${PROGDIR}/src/unix"
-  local dest="${HOME}"
+  src="${PROGDIR}/src/unix"
+  dest="${HOME}"
+  # check requirements
   [ -d "${src}" ] || eexit "${src} doesn't exist"
   [ -d "${dest}" ] || eexit "${dest} doesn't exist"
-  local b_string='for file in $(find ~/.config/bash -mindepth 1); do source ${file}; done'
+  b_string='for file in $(find ~/.config/bash -mindepth 1); do source "${file}"; done'
   case "${1}" in
     "i" | "install" )
       dotfiles_install "${src}" "${dest}"
@@ -96,7 +97,7 @@ main() {
     ;;
     "u" | "uninstall" )
       dotfiles_uninstall "${src}" "${dest}"
-      sed -i "s!${b_string}!!" ~/.bashrc
+      sed -i "s!${b_string}\n!!" ~/.bashrc
     ;;
     "-h" | "--help" )
       helptext
