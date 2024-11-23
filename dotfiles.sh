@@ -89,7 +89,7 @@ main() {
   # check requirements
   [ -d "${src}" ] || eexit "${src} doesn't exist"
   [ -d "${dest}" ] || eexit "${dest} doesn't exist"
-  b_string='for file in $(find ~/.config/bash -mindepth 1); do source "${file}"; done'
+  b_string='for file in $(find ~/.config/bashrc -mindepth 1); do source "${file}"; done'
   case "${1}" in
     "i" | "install" )
       dotfiles_install "${src}" "${dest}"
